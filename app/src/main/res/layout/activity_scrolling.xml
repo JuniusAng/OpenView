@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:id="@+id/core_coordinator_layout"
+    tools:context=".ScrollingActivity">
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/core_app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+
+        android:elevation="4dp"
+        android:outlineProvider="bounds"
+        android:theme="@style/AppTheme.AppBarOverlay">
+        <!--<android.support.design.widget.CollapsingToolbarLayout-->
+            <!--android:id="@+id/toolbar_layout"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:fitsSystemWindows="true"-->
+            <!--app:contentScrim="?attr/colorPrimary"-->
+            <!--app:layout_scrollFlags="scroll|enterAlways">-->
+            <!--<ImageView-->
+                <!--android:id="@+id/header_image"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:scaleType="fitXY"-->
+                <!--app:layout_collapseMode="parallax"-->
+                <!--android:src="@drawable/dickbutt"/>-->
+        <!--</android.support.design.widget.CollapsingToolbarLayout>-->
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:textSize="17sp"-->
+            <!--android:textColor="#000000"-->
+            <!--android:text="Title"/>-->
+    </android.support.design.widget.AppBarLayout>
+
+    <include layout="@layout/content_scrolling"/>
+</android.support.design.widget.CoordinatorLayout>

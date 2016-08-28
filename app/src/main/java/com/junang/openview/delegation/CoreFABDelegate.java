@@ -1,4 +1,4 @@
-package com.junang.delegation;
+package com.junang.openview.delegation;
 
 import android.support.annotation.IdRes;
 import android.support.design.widget.CoordinatorLayout;
