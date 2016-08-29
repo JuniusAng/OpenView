@@ -13,7 +13,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true"
-
         android:elevation="4dp"
         android:outlineProvider="bounds"
         android:theme="@style/AppTheme.AppBarOverlay">
@@ -39,6 +38,15 @@
             <!--android:textColor="#000000"-->
             <!--android:text="Title"/>-->
     </android.support.design.widget.AppBarLayout>
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/core_content_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context=".ScrollingActivity"
+        tools:showIn="@layout/activity_scrolling">
 
-    <include layout="@layout/content_scrolling"/>
+        <include layout="@layout/content_scrolling"/>
+
+        </android.support.v4.widget.NestedScrollView>
 </android.support.design.widget.CoordinatorLayout>

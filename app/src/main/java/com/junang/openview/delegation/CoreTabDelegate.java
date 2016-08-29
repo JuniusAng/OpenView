@@ -57,6 +57,21 @@ public class CoreTabDelegate<T extends CoreDelegateDependency> extends CoreDeleg
         vTabLayout.setLayoutParams(p);
     }
 
+    /**
+     * set toolbar interaction against AppBarLayout scrolling mechanism
+     * @param appBarScrollMode set -1 to leave it as non scrollable
+     */
+    public void setAppBarScrollingBehavior(int appBarScrollMode){
+        AppBarLayout.LayoutParams p = getAppBarLayoutParam(vTabLayout);
+        if(appBarScrollMode == -1){
+            p.setScrollFlags(0);
+        }
+        else {
+            p.setScrollFlags(appBarScrollMode);
+        }
+        vTabLayout.setLayoutParams(p);
+    }
+
     public TabLayout getTabLayout() {
         return vTabLayout;
     }

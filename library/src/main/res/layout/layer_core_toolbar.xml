@@ -8,6 +8,49 @@
     android:layout_height="?attr/actionBarSize"
     android:layout_gravity="top|center_horizontal"
     android:fitsSystemWindows="true"
+    android:titleTextColor="@color/text_light"
     android:elevation="4dp"
     android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-    app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"/>
+    app:popupTheme="@style/ThemeOverlay.AppCompat.Dark">
+    <!-- middle section of toolbar-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/left_button_container"
+        android:layout_marginLeft="@dimen/common_dp_16"
+        android:layout_marginRight="@dimen/common_dp_8"
+        android:orientation="vertical">
+
+        <HorizontalScrollView
+            android:id="@+id/title_scroll_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fillViewport="true"
+            android:scrollbars="none">
+
+            <TextView
+                android:id="@+id/text_view_toolbar_title"
+                style="@style/BaseText.XLarge_17"
+                android:ellipsize="none"
+                android:focusableInTouchMode="true"
+                android:gravity="left"
+                android:maxLines="1"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
+                android:textColor="@color/text_light"
+                android:text="TESTING"/>
+        </HorizontalScrollView>
+
+        <TextView
+            android:id="@+id/text_view_toolbar_content"
+            style="@style/BaseText.XSmall_12"
+            android:layout_width="wrap_content"
+            android:layout_gravity="left"
+            android:gravity="center"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textColor="@color/text_light"
+            android:visibility="gone"/>
+    </LinearLayout>
+</android.support.v7.widget.Toolbar>
