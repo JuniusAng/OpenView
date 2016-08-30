@@ -47,6 +47,7 @@ public class CoreAppBarDelegate<T extends CoreDelegateDependency> extends CoreDe
             getLayoutInflater().inflate(R.layout.layer_core_toolbar, getCoreDelegateDependency().getAppBarLayout(), true);
             vToolbar = ViewUtil.findById(getCoreDelegateDependency().getAppBarLayout(), R.id.core_toolbar);
         }
+
         //getCoreDelegateDependency().getAppBarLayout().addOnOffsetChangedListener(this);
     }
 
@@ -102,10 +103,6 @@ public class CoreAppBarDelegate<T extends CoreDelegateDependency> extends CoreDe
             // finally change the color
             window.setStatusBarColor(ContextCompat.getColor(appCompatActivity, color));
         }
-    }
-
-    public void changeViewVisibility(){
-
     }
 
     public boolean isAnimatingVisibility() {

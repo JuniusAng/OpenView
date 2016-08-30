@@ -2,6 +2,7 @@ package com.junang.openview.delegation;
 
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.v4.view.AsyncLayoutInflater;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -38,6 +39,9 @@ public abstract class CoreDelegate<T extends CoreDelegateDependency>{
         return mCoreDelegateDependency.getLayoutInflater();
     }
 
+    protected AsyncLayoutInflater getAsyncLayoutInflater(){
+        return mCoreDelegateDependency.getAsyncLayoutInflater();
+    }
     /**
      * helper method for view inside AppBar layout only
      * @return

@@ -3,8 +3,10 @@ package com.junang.openview.delegation;
 import android.support.annotation.IdRes;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.view.AsyncLayoutInflater;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.junang.openview.R;
 
@@ -72,6 +74,15 @@ public class CoreFABDelegate<T extends CoreDelegateDependency> extends CoreDeleg
 
     public CoreFABDelegate(T coreDelegateDependency) {
         super(coreDelegateDependency);
+//        getAsyncLayoutInflater().inflate(R.layout.layer_core_fab, getCoordinatorLayout(), new AsyncLayoutInflater.OnInflateFinishedListener() {
+//            @Override
+//            public void onInflateFinished(View view, int resid, ViewGroup parent) {
+//                parent.addView(view);
+//                CoordinatorLayout.LayoutParams p = ((CoordinatorLayout.LayoutParams)view.getLayoutParams());
+//                p.gravity = Gravity.BOTTOM | Gravity.END;
+//                view.setLayoutParams(p);
+//            }
+//        });
         getLayoutInflater().inflate(R.layout.layer_core_fab, getCoordinatorLayout(), true);
         mFloatingActionButton = (FloatingActionButton) (getCoordinatorLayout().findViewById(R.id.core_fab));
     }
