@@ -52,19 +52,23 @@ public class ScrollingActivity extends AppCompatActivity {
                 TransitionManager.beginDelayedTransition(coreDelegateDependency.getCoordinatorLayout());
                 if(tv == null) {
                     tv = new TextView(ScrollingActivity.this);
-                    coreDelegateDependency.getAppBarLayout().addView(tv);
+                    tv.setText("Form here : initialization example");
+                    coreDelegateDependency.getAppBarLayout().addView(tv, 1);
                 }
                 else{
                     tv.getLayoutParams().height = 300;
                     if(tv.getVisibility() == View.VISIBLE)
                         tv.setVisibility(View.GONE);
-                    else tv.setVisibility(View.VISIBLE);
+                    else {
+                        tv.setVisibility(View.VISIBLE);
+                        tv.setText("Form here : Expanded");
+                    }
                 }
             }
         });
 //        CoreFABDelegate coreFABDelegate = new CoreFABDelegate(coreDelegateDependency);
         coreAppBarDelegate = CoreAppBarDelegate.createDefaultImpl(coreDelegateDependency, false);
-        coreAppBarDelegate.setStatusBarColor(this, R.color.colorPrimary);
+        coreAppBarDelegate.setStatusBarColor(this, R.color.colorPrimaryDark);
         coreAppBarDelegate.setAppBarScrollingBehavior(AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL | AppBarLayout.LayoutParams.SCROLL_FLAG_SNAP);
 //        coreAppBarDelegate.setCollapsingToolbarScrollingBehavior(CollapsingToolbarLayout.LayoutParams.COLLAPSE_MODE_PIN, coreAppBarDelegate.getToolbar());
         CoreTabDelegate<CoreDelegateDependency> coreTabDelegate = CoreTabDelegate.createDefaultImpl(coreDelegateDependency);

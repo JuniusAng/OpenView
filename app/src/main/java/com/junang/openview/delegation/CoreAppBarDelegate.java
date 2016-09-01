@@ -26,15 +26,23 @@ public class CoreAppBarDelegate<T extends CoreDelegateDependency> extends CoreDe
         return coreAppBarDelegate;
     }
 
+    public static CoreAppBarDelegate createNoToolbarImpl(CoreDelegateDependency coreDelegateDependency){
+        CoreAppBarDelegate coreAppBarDelegate = new CoreAppBarDelegate(coreDelegateDependency);
+        return coreAppBarDelegate;
+    }
     private ArrayList<View> addedViewList;
     private CollapsingToolbarLayout vCollapsingToolbarLayout;
     private boolean isCollapsingToolbarLayoutNeeded;
     protected Toolbar vToolbar;
     protected boolean isAnimatingVisibility;
 
-    public CoreAppBarDelegate(T mCoreDelegateDependency, boolean isCollapsingToolbarLayoutNeeded) {
+    public CoreAppBarDelegate(T mCoreDelegateDependency){
         super(mCoreDelegateDependency);
         addedViewList = new ArrayList<>();
+    }
+
+    public CoreAppBarDelegate(T mCoreDelegateDependency, boolean isCollapsingToolbarLayoutNeeded) {
+        this(mCoreDelegateDependency);
         this.isCollapsingToolbarLayoutNeeded = isCollapsingToolbarLayoutNeeded;
 
         if(isCollapsingToolbarLayoutNeeded){
@@ -47,7 +55,7 @@ public class CoreAppBarDelegate<T extends CoreDelegateDependency> extends CoreDe
             getLayoutInflater().inflate(R.layout.layer_core_toolbar, getCoreDelegateDependency().getAppBarLayout(), true);
             vToolbar = ViewUtil.findById(getCoreDelegateDependency().getAppBarLayout(), R.id.core_toolbar);
         }
-
+        registerInternalView(vToolbar);
         //getCoreDelegateDependency().getAppBarLayout().addOnOffsetChangedListener(this);
     }
 
