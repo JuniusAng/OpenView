@@ -2,18 +2,12 @@ package com.junang.openview;
 
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.Snackbar;
-import android.support.design.widget.TabLayout;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.AsyncLayoutInflater;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.junang.openview.delegation.CoreAppBarDelegate;
@@ -44,7 +38,7 @@ public class ScrollingActivity extends AppCompatActivity {
                 (CoordinatorLayout) findViewById(R.id.core_coordinator_layout),
                 (AppBarLayout) findViewById(R.id.core_app_bar),
                 (NestedScrollView) findViewById(R.id.core_content_scroll));
-        CoreFABDelegate coreFABDelegate = CoreFABDelegate.createDefaultFABImpl(coreDelegateDependency);
+        CoreFABDelegate coreFABDelegate = CoreFABDelegate.createDefaultImpl(coreDelegateDependency);
         coreFABDelegate.setFABBehavior(new ScrollAwareFABBehavior());
         coreFABDelegate.setFABListener(new View.OnClickListener() {
             @Override

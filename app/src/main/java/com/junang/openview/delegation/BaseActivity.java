@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 public abstract class BaseActivity extends AppCompatActivity{
     protected CoreDelegateDependency mCoreDelegateDependency;
     protected CoreAppBarDelegate mCoreAppBarDelegate;
+    protected CoreFABDelegate mCoreFABDelegate;
+    protected CoreTabDelegate mCoreTabDelegate;
     protected void initDelegate(){
 
     }

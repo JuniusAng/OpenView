@@ -20,7 +20,7 @@ public class CoreFABDelegate<T extends CoreDelegateDependency> extends CoreDeleg
      * @param coreDelegateDependency
      * @return CoreFABDelegate
      */
-    public static <T extends CoreDelegateDependency> CoreFABDelegate createDefaultFABImpl(T coreDelegateDependency){
+    public static <T extends CoreDelegateDependency> CoreFABDelegate createDefaultImpl(T coreDelegateDependency){
         CoreFABDelegate coreFABDelegate = new CoreFABDelegate(coreDelegateDependency);
         CoordinatorLayout.LayoutParams p = ((CoordinatorLayout.LayoutParams)coreFABDelegate.getFAB().getLayoutParams());
         p.gravity = Gravity.BOTTOM | Gravity.END;
