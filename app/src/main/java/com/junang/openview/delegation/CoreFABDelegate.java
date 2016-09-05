@@ -3,8 +3,8 @@ package com.junang.openview.delegation;
 import android.support.annotation.IdRes;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.view.AsyncLayoutInflater;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -14,32 +14,36 @@ import com.junang.openview.R;
  * Created by junius.ang on 8/23/2016.
  * must be used from V3 environment
  */
-public class CoreFABDelegate<T extends CoreDelegateDependency> extends CoreDelegate<T> {
+public class CoreFABDelegate{
     /**
      * This builder will create default implementation of FAB in bottom end gravity
-     * @param coreDelegateDependency
+     * @param layoutInflater
      * @return CoreFABDelegate
      */
-    public static <T extends CoreDelegateDependency> CoreFABDelegate createDefaultImpl(T coreDelegateDependency){
-        CoreFABDelegate coreFABDelegate = new CoreFABDelegate(coreDelegateDependency);
+    public static CoreFABDelegate createDefaultImpl(LayoutInflater layoutInflater, CoordinatorLayout coordinatorLayout){
+        CoreFABDelegate coreFABDelegate = new CoreFABDelegate(layoutInflater, coordinatorLayout);
         CoordinatorLayout.LayoutParams p = ((CoordinatorLayout.LayoutParams)coreFABDelegate.getFAB().getLayoutParams());
         p.gravity = Gravity.BOTTOM | Gravity.END;
         coreFABDelegate.getFAB().setLayoutParams(p);
         return coreFABDelegate;
     }
 
+    public static CoreFABDelegate createFABOnlyImpl(LayoutInflater layoutInflater){
+        CoreFABDelegate coreFABDelegate = new CoreFABDelegate(layoutInflater);
+        return coreFABDelegate;
+    }
+
     /**
      * will call createFullImpl but with predefined value as this builder intended so FAB can stick to the AppBar
-     * @param coreDelegateDependency
      * @param anchorGravity set -1 to ignore, you can use something like Gravity.BOTTOM| Gravity.CENTER_HORIZONTAL to put FAB in the botttom center of appbar
      * @return
      */
-    public static <T extends CoreDelegateDependency>  CoreFABDelegate createAnchorAppBarFABImpl(T coreDelegateDependency, int anchorGravity){
+    public static CoreFABDelegate createAnchorAppBarFABImpl(LayoutInflater layoutInflater, CoordinatorLayout coordinatorLayout, int anchorGravity){
         if(anchorGravity == -1) {
-            return createFullImpl(coreDelegateDependency, R.id.core_app_bar, Gravity.BOTTOM | Gravity.END, -1, null);
+            return createFullImpl(layoutInflater, coordinatorLayout, R.id.core_app_bar, Gravity.BOTTOM | Gravity.END, -1, null);
         }
         else{
-            return createFullImpl(coreDelegateDependency, R.id.core_app_bar, anchorGravity, -1, null);
+            return createFullImpl(layoutInflater, coordinatorLayout, R.id.core_app_bar, anchorGravity, -1, null);
         }
     }
 
@@ -51,8 +55,8 @@ public class CoreFABDelegate<T extends CoreDelegateDependency> extends CoreDeleg
      * @param behavior this will determine the behavior for FAB, currently only support ScrollAwareFAB behavior, set null to ignore
      * @return CoreFABDelegate
      */
-    public static <T extends CoreDelegateDependency> CoreFABDelegate createFullImpl(T coreDelegateDependency, @IdRes int anchorId, int anchorGravity, int gravity, FloatingActionButton.Behavior behavior){
-        CoreFABDelegate coreFABDelegate = new CoreFABDelegate(coreDelegateDependency);
+    public static CoreFABDelegate createFullImpl(LayoutInflater layoutInflater, CoordinatorLayout coordinatorLayout, @IdRes int anchorId, int anchorGravity, int gravity, FloatingActionButton.Behavior behavior){
+        CoreFABDelegate coreFABDelegate = new CoreFABDelegate(layoutInflater, coordinatorLayout);
         CoordinatorLayout.LayoutParams p = ((CoordinatorLayout.LayoutParams) coreFABDelegate.getFAB().getLayoutParams());
         if(anchorId != -1) {
             p.setAnchorId(anchorId);
@@ -72,8 +76,11 @@ public class CoreFABDelegate<T extends CoreDelegateDependency> extends CoreDeleg
 
     protected FloatingActionButton mFloatingActionButton;
 
-    public CoreFABDelegate(T coreDelegateDependency) {
-        super(coreDelegateDependency);
+    private CoreFABDelegate(LayoutInflater layoutInflater){
+        mFloatingActionButton = (FloatingActionButton) layoutInflater.inflate(R.layout.layer_core_fab, null, false);
+    }
+
+    private CoreFABDelegate(LayoutInflater layoutInflater, CoordinatorLayout coordinatorLayout) {
 //        getAsyncLayoutInflater().inflate(R.layout.layer_core_fab, getCoordinatorLayout(), new AsyncLayoutInflater.OnInflateFinishedListener() {
 //            @Override
 //            public void onInflateFinished(View view, int resid, ViewGroup parent) {
@@ -83,8 +90,8 @@ public class CoreFABDelegate<T extends CoreDelegateDependency> extends CoreDeleg
 //                view.setLayoutParams(p);
 //            }
 //        });
-        getLayoutInflater().inflate(R.layout.layer_core_fab, getCoordinatorLayout(), true);
-        mFloatingActionButton = (FloatingActionButton) (getCoordinatorLayout().findViewById(R.id.core_fab));
+        layoutInflater.inflate(R.layout.layer_core_fab, coordinatorLayout, true);
+        mFloatingActionButton = (FloatingActionButton) (coordinatorLayout.findViewById(R.id.core_fab));
     }
 
     /**

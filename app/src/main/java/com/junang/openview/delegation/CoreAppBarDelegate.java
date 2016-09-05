@@ -6,7 +6,7 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.transition.TransitionManager;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -19,44 +19,45 @@ import java.util.ArrayList;
 /**
  * Created by junius.ang on 8/24/2016.
  */
-public class CoreAppBarDelegate<T extends CoreDelegateDependency> extends CoreDelegate<T> implements AppBarLayout.OnOffsetChangedListener{
+public class CoreAppBarDelegate implements AppBarLayout.OnOffsetChangedListener{
 
-    public static CoreAppBarDelegate createDefaultImpl(CoreDelegateDependency coreDelegateDependency, boolean isCollapsingToolbarNeeded){
-        CoreAppBarDelegate coreAppBarDelegate = new CoreAppBarDelegate(coreDelegateDependency, isCollapsingToolbarNeeded);
+    public static CoreAppBarDelegate createDefaultImpl(LayoutInflater layoutInflater, AppBarLayout appBarLayout, boolean isCollapsingToolbarLayoutNeeded){
+        CoreAppBarDelegate coreAppBarDelegate = new CoreAppBarDelegate(layoutInflater, appBarLayout, isCollapsingToolbarLayoutNeeded);
         return coreAppBarDelegate;
     }
 
-    public static CoreAppBarDelegate createNoToolbarImpl(CoreDelegateDependency coreDelegateDependency){
-        CoreAppBarDelegate coreAppBarDelegate = new CoreAppBarDelegate(coreDelegateDependency);
+    public static CoreAppBarDelegate createNoToolbarImpl(){
+        CoreAppBarDelegate coreAppBarDelegate = new CoreAppBarDelegate();
         return coreAppBarDelegate;
     }
+
+
     private ArrayList<View> addedViewList;
     private CollapsingToolbarLayout vCollapsingToolbarLayout;
     private boolean isCollapsingToolbarLayoutNeeded;
     protected Toolbar vToolbar;
+    private AppBarLayout vAppBarLayout;
     protected boolean isAnimatingVisibility;
 
-    public CoreAppBarDelegate(T mCoreDelegateDependency){
-        super(mCoreDelegateDependency);
+    private CoreAppBarDelegate(){
         addedViewList = new ArrayList<>();
     }
 
-    public CoreAppBarDelegate(T mCoreDelegateDependency, boolean isCollapsingToolbarLayoutNeeded) {
-        this(mCoreDelegateDependency);
+    public CoreAppBarDelegate(LayoutInflater layoutInflater, AppBarLayout appBarLayout, boolean isCollapsingToolbarLayoutNeeded) {
         this.isCollapsingToolbarLayoutNeeded = isCollapsingToolbarLayoutNeeded;
 
         if(isCollapsingToolbarLayoutNeeded){
-            getLayoutInflater().inflate(R.layout.layer_core_collapsing_layout, getCoreDelegateDependency().getAppBarLayout(), true);
-            vCollapsingToolbarLayout = ViewUtil.findById(getCoreDelegateDependency().getAppBarLayout(), R.id.core_collapsing_toolbar);
+            layoutInflater.inflate(R.layout.layer_core_collapsing_layout, appBarLayout, true);
+            vCollapsingToolbarLayout = ViewUtil.findById(appBarLayout, R.id.core_collapsing_toolbar);
             registerInternalView(vCollapsingToolbarLayout);
             vToolbar = ViewUtil.findById(vCollapsingToolbarLayout, R.id.core_toolbar);
         }
         else{
-            getLayoutInflater().inflate(R.layout.layer_core_toolbar, getCoreDelegateDependency().getAppBarLayout(), true);
-            vToolbar = ViewUtil.findById(getCoreDelegateDependency().getAppBarLayout(), R.id.core_toolbar);
+            layoutInflater.inflate(R.layout.layer_core_toolbar, appBarLayout, true);
+            vToolbar = ViewUtil.findById(appBarLayout, R.id.core_toolbar);
         }
         registerInternalView(vToolbar);
-        //getCoreDelegateDependency().getAppBarLayout().addOnOffsetChangedListener(this);
+        //appBarLayout.addOnOffsetChangedListener(this);
     }
 
     /**
@@ -65,7 +66,7 @@ public class CoreAppBarDelegate<T extends CoreDelegateDependency> extends CoreDe
      */
     public void setAppBarScrollingBehavior(int appBarScrollMode){
         if(!isCollapsingToolbarLayoutNeeded) {
-            AppBarLayout.LayoutParams p = getAppBarLayoutParam(vToolbar);
+            AppBarLayout.LayoutParams p = CoreDelegateUtil.getAppBarLayoutParam(vToolbar);
             if (appBarScrollMode == -1) {
                 p.setScrollFlags(0);
             } else {
@@ -75,7 +76,7 @@ public class CoreAppBarDelegate<T extends CoreDelegateDependency> extends CoreDe
         }
         //must be CollapsingToolbarLayout.LayoutParams
         else{
-            AppBarLayout.LayoutParams p = getAppBarLayoutParam(vCollapsingToolbarLayout);
+            AppBarLayout.LayoutParams p = CoreDelegateUtil.getAppBarLayoutParam(vCollapsingToolbarLayout);
             if (appBarScrollMode == -1) {
                 p.setScrollFlags(0);
             } else {
@@ -148,10 +149,10 @@ public class CoreAppBarDelegate<T extends CoreDelegateDependency> extends CoreDe
         }
         if(isAddToCollapsingDisabled || !isCollapsingToolbarLayoutNeeded){
             if (index == -1) {
-                mCoreDelegateDependency.getAppBarLayout().addView(v);
+                vAppBarLayout.addView(v);
             }
             else{
-                mCoreDelegateDependency.getAppBarLayout().addView(v, index);
+                vAppBarLayout.addView(v, index);
             }
         }
         else{

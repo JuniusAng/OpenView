@@ -4,7 +4,9 @@ import android.support.annotation.LayoutRes;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.junang.openview.R;
 
@@ -14,28 +16,39 @@ import com.junang.openview.R;
  */
 
 //TODO still need to apply tab style here
-public class CoreTabDelegate<T extends CoreDelegateDependency> extends CoreDelegate<T> {
+public class CoreTabDelegate {
     /**
      * Default implementation for tab is fixed mode, you are not endorsed to change the text appearance for tab as it is already defined by the style
      * Make sure to set view pager
-     * @param coreDelegateDependency
+     * param layoutInflater
+     * param appBarLayout
      */
-    public static<T extends CoreDelegateDependency> CoreTabDelegate  createDefaultImpl(T coreDelegateDependency){
-        CoreTabDelegate coreTabDelegate = new CoreTabDelegate(coreDelegateDependency);
+    public static CoreTabDelegate  createDefaultImpl(LayoutInflater layoutInflater, AppBarLayout appBarLayout){
+        CoreTabDelegate coreTabDelegate = new CoreTabDelegate(layoutInflater, appBarLayout);
         coreTabDelegate.setScrollMode(TabLayout.MODE_FIXED);
         return coreTabDelegate;
     }
 
     /**
+     *
+     * @param layoutInflater
+     * @param parent parent view that we attach this tab to.
+     * @return
+     */
+    public static CoreTabDelegate createTabToLayoutImpl(LayoutInflater layoutInflater, ViewGroup parent){
+        CoreTabDelegate coreTabDelegate = new CoreTabDelegate(layoutInflater, parent);
+        coreTabDelegate.setScrollMode(TabLayout.MODE_FIXED);
+        return coreTabDelegate;
+    }
+    /**
      * This is more complete set of Builder. please note that tabScrollMode, and AppBarScrollMode is different, set -1 to use default value
-     * @param coreDelegateDependency
      * @param tabScrollMode either TabLayout.MODE_FIXED | TabLayout.MODE_SCROLLABLE
      * @param appBarScrollMode this will determine the tab scrolling behavior, if tab need to stay in screen set as -1
      * @param viewPager set the required viewpager, this tablayout will automatically get tab text from viewPager adapter
      * @return
      */
-    public static<T extends CoreDelegateDependency> CoreTabDelegate createFullImpl(T coreDelegateDependency, @TabLayout.Mode int tabScrollMode, int appBarScrollMode, ViewPager viewPager){
-        CoreTabDelegate coreTabDelegate = new CoreTabDelegate(coreDelegateDependency);
+    public static CoreTabDelegate createFullImpl(LayoutInflater layoutInflater, AppBarLayout appBarLayout, @TabLayout.Mode int tabScrollMode, int appBarScrollMode, ViewPager viewPager){
+        CoreTabDelegate coreTabDelegate = new CoreTabDelegate(layoutInflater, appBarLayout);
         coreTabDelegate.setScrollMode(tabScrollMode);
         AppBarLayout.LayoutParams p = (AppBarLayout.LayoutParams)coreTabDelegate.getTabLayout().getLayoutParams();
         if(appBarScrollMode != -1) {
@@ -49,11 +62,16 @@ public class CoreTabDelegate<T extends CoreDelegateDependency> extends CoreDeleg
 
     protected TabLayout vTabLayout;
 
-    public CoreTabDelegate(T mCoreDelegateDependency) {
-        super(mCoreDelegateDependency);
-        getLayoutInflater().inflate(R.layout.layer_core_tab, getCoreDelegateDependency().getAppBarLayout(), true);
-        vTabLayout = (TabLayout) getCoreDelegateDependency().getAppBarLayout().findViewById(R.id.core_tab);
-        AppBarLayout.LayoutParams p = getAppBarLayoutParam(vTabLayout);
+    //Custom
+    private CoreTabDelegate(LayoutInflater layoutInflater, ViewGroup parent){
+        layoutInflater.inflate(R.layout.layer_core_tab, parent, true);
+        vTabLayout = (TabLayout) parent.findViewById(R.id.core_tab);
+    }
+
+    public CoreTabDelegate(LayoutInflater layoutInflater, AppBarLayout appBarLayout) {
+        layoutInflater.inflate(R.layout.layer_core_tab, appBarLayout, true);
+        vTabLayout = (TabLayout) appBarLayout.findViewById(R.id.core_tab);
+        AppBarLayout.LayoutParams p = CoreDelegateUtil.getAppBarLayoutParam(vTabLayout);
         vTabLayout.setLayoutParams(p);
     }
 
@@ -62,7 +80,7 @@ public class CoreTabDelegate<T extends CoreDelegateDependency> extends CoreDeleg
      * @param appBarScrollMode set -1 to leave it as non scrollable
      */
     public void setAppBarScrollingBehavior(int appBarScrollMode){
-        AppBarLayout.LayoutParams p = getAppBarLayoutParam(vTabLayout);
+        AppBarLayout.LayoutParams p = CoreDelegateUtil.getAppBarLayoutParam(vTabLayout);
         if(appBarScrollMode == -1){
             p.setScrollFlags(0);
         }

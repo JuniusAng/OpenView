@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.junang.openview.delegation.CoreAppBarDelegate;
-import com.junang.openview.delegation.CoreDelegateDependency;
 import com.junang.openview.delegation.CoreFABDelegate;
 import com.junang.openview.delegation.CoreTabDelegate;
 import com.junang.openview.delegation.behavior.ScrollAwareFABBehavior;
@@ -34,20 +33,22 @@ public class ScrollingActivity extends AppCompatActivity {
 //            }
 //        });
 
-        final CoreDelegateDependency coreDelegateDependency = new CoreDelegateDependency(new AsyncLayoutInflater(this), getLayoutInflater(),
-                (CoordinatorLayout) findViewById(R.id.core_coordinator_layout),
-                (AppBarLayout) findViewById(R.id.core_app_bar),
-                (NestedScrollView) findViewById(R.id.core_content_scroll));
-        CoreFABDelegate coreFABDelegate = CoreFABDelegate.createDefaultImpl(coreDelegateDependency);
+//        final CoreDelegateDependency coreDelegateDependency = new CoreDelegateDependency(new AsyncLayoutInflater(this), getLayoutInflater(),
+//                (CoordinatorLayout) findViewById(R.id.core_coordinator_layout),
+//                (AppBarLayout) findViewById(R.id.core_app_bar),
+//                (NestedScrollView) findViewById(R.id.core_content_scroll));
+        final CoordinatorLayout coordinatorLayout = (CoordinatorLayout) findViewById(R.id.core_coordinator_layout);
+        final AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.core_app_bar);
+        CoreFABDelegate coreFABDelegate = CoreFABDelegate.createDefaultImpl(getLayoutInflater(),coordinatorLayout );
         coreFABDelegate.setFABBehavior(new ScrollAwareFABBehavior());
         coreFABDelegate.setFABListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TransitionManager.beginDelayedTransition(coreDelegateDependency.getCoordinatorLayout());
+                TransitionManager.beginDelayedTransition(coordinatorLayout);
                 if(tv == null) {
                     tv = new TextView(ScrollingActivity.this);
                     tv.setText("Form here : initialization example");
-                    coreDelegateDependency.getAppBarLayout().addView(tv, 1);
+                    appBarLayout.addView(tv, 1);
                 }
                 else{
                     tv.getLayoutParams().height = 300;
@@ -61,11 +62,11 @@ public class ScrollingActivity extends AppCompatActivity {
             }
         });
 //        CoreFABDelegate coreFABDelegate = new CoreFABDelegate(coreDelegateDependency);
-        coreAppBarDelegate = CoreAppBarDelegate.createDefaultImpl(coreDelegateDependency, false);
+        coreAppBarDelegate = CoreAppBarDelegate.createDefaultImpl(getLayoutInflater(), appBarLayout, false);
         coreAppBarDelegate.setStatusBarColor(this, R.color.colorPrimaryDark);
         coreAppBarDelegate.setAppBarScrollingBehavior(AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL | AppBarLayout.LayoutParams.SCROLL_FLAG_SNAP);
 //        coreAppBarDelegate.setCollapsingToolbarScrollingBehavior(CollapsingToolbarLayout.LayoutParams.COLLAPSE_MODE_PIN, coreAppBarDelegate.getToolbar());
-        CoreTabDelegate<CoreDelegateDependency> coreTabDelegate = CoreTabDelegate.createDefaultImpl(coreDelegateDependency);
+        CoreTabDelegate coreTabDelegate = CoreTabDelegate.createDefaultImpl(getLayoutInflater(), appBarLayout);
 //        coreTabDelegate.setScrollMode(TabLayout.MODE_FIXED);
         coreTabDelegate.createDummyTab(2);
         coreTabDelegate.setCustomViewToTab(R.layout.sample_layer_tab_title, 0, -1);
