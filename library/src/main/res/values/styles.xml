@@ -47,4 +47,30 @@
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textColor">@color/text_main</item>
     </style>
+
+    <style name="BaseInputLayout" parent="Theme.Design.Light">
+        <item name="errorTextAppearance">@style/CoreText.Error</item>
+        <item name="floatingHelpTextAppearance">@style/CoreText.Floating</item>
+        <item name="inlineHelpTextApperance">@style/CoreText.Floating</item>
+        <item name="hintTextAppearance">@style/CoreText.Floating</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="colorControlNormal">#c5c5c5</item>
+        <item name="colorControlActivated">@color/design_textinput_error_color_light</item>
+        <item name="colorControlHighlight">@color/design_textinput_error_color_light</item>
+    </style>
+
+    <style name="BaseInputLayout.Email">
+
+    </style>
+
+    <style name="CoreText.Error" parent="BaseText.XSmall_12">
+        <item name="android:textColor">@color/design_textinput_error_color_light</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="CoreText.Floating" parent="BaseText.XSmall_12">
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:textSize">12sp</item>
+    </style>
 </resources>

@@ -15,11 +15,11 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:layout_centerVertical="true"
         android:layout_toRightOf="@+id/left_button_container"
         android:layout_marginLeft="@dimen/common_dp_16"
         android:layout_marginRight="@dimen/common_dp_8"
-        android:fitsSystemWindows="true"
         android:orientation="vertical">
 
         <HorizontalScrollView

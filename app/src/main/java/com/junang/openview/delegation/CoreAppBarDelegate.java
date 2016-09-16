@@ -6,10 +6,17 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.HorizontalScrollView;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.junang.openview.R;
 import com.junang.openview.util.ViewUtil;
@@ -44,6 +51,41 @@ public class CoreAppBarDelegate implements AppBarLayout.OnOffsetChangedListener{
     }
 
     public CoreAppBarDelegate(LayoutInflater layoutInflater, AppBarLayout appBarLayout, boolean isCollapsingToolbarLayoutNeeded) {
+        vAppBarLayout = appBarLayout;
+        vAppBarLayout.setOnHierarchyChangeListener(new ViewGroup.OnHierarchyChangeListener() {
+            @Override
+            public void onChildViewAdded(View parent, View child) {
+                Log.d("height","measureHeight : "+ vAppBarLayout.getMeasuredHeight()+" "+vAppBarLayout.getHeight());
+            }
+
+            @Override
+            public void onChildViewRemoved(View parent, View child) {
+
+            }
+        });
+
+        ViewTreeObserver vto = vAppBarLayout.getViewTreeObserver();
+        if (vto.isAlive()) {
+            vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                @Override
+                public void onGlobalLayout() {
+                    try {
+                        Log.d("height_vto","measureHeight : "+ vAppBarLayout.getMeasuredHeight()+" "+vAppBarLayout.getHeight());
+                        if (Build.VERSION.SDK_INT >= 16) {
+                            vAppBarLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                        } else {
+                            vAppBarLayout.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                        }
+                        vAppBarLayout.getLayoutParams().height = vAppBarLayout.getMeasuredHeight();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+
+                    }
+                }
+            });
+        }
+        addedViewList = new ArrayList<>();
         this.isCollapsingToolbarLayoutNeeded = isCollapsingToolbarLayoutNeeded;
 
         if(isCollapsingToolbarLayoutNeeded){
@@ -56,7 +98,9 @@ public class CoreAppBarDelegate implements AppBarLayout.OnOffsetChangedListener{
             layoutInflater.inflate(R.layout.layer_core_toolbar, appBarLayout, true);
             vToolbar = ViewUtil.findById(appBarLayout, R.id.core_toolbar);
         }
+//        vAppBarLayout.getLayoutParams().height = vAppBarLayout.getMeasuredHeight();
         registerInternalView(vToolbar);
+
         //appBarLayout.addOnOffsetChangedListener(this);
     }
 
