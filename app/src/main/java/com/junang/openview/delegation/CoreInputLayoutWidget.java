@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatEditText;
@@ -28,7 +29,7 @@ import com.junang.openview.util.ViewUtil;
 public class CoreInputLayoutWidget extends TextInputLayout {
     protected Context mContext;
     protected Paint mPaint;
-    protected EditText vEditText;
+    protected TextInputEditText vEditText;
     protected boolean isHintFloating = true;
     protected boolean isErrorBottom = true;
 
@@ -70,7 +71,7 @@ public class CoreInputLayoutWidget extends TextInputLayout {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+
         }
     }
 
@@ -86,7 +87,7 @@ public class CoreInputLayoutWidget extends TextInputLayout {
 
     protected void init(AttributeSet attrs, int defStyleAttrs){
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        vEditText = new AppCompatEditText(mContext, attrs);
+        vEditText = new TextInputEditText(mContext, attrs);
 
         vEditText.setImeOptions(EditorInfo.IME_ACTION_NEXT);
         vEditText.setOnEditorActionListener(new EditText.OnEditorActionListener() {

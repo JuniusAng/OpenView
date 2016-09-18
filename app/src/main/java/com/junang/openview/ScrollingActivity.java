@@ -23,6 +23,7 @@ import com.junang.openview.delegation.CoreTabDelegate;
 import com.junang.openview.delegation.behavior.ScrollAwareFABBehavior;
 import com.junang.openview.util.ViewUtil;
 import com.junang.openview.widget.ClickToSelectEditText;
+import com.junang.openview.widget.CoreSpinnerWidget;
 import com.junang.openview.widget.Listable;
 import com.transitionseverywhere.TransitionManager;
 
@@ -94,7 +95,7 @@ public class ScrollingActivity extends AppCompatActivity {
 
             }
         });
-        coreAppBarDelegate = CoreAppBarDelegate.createDefaultImpl(getLayoutInflater(), appBarLayout, true);
+        coreAppBarDelegate = CoreAppBarDelegate.createDefaultImpl(getLayoutInflater(), appBarLayout, false);
         coreAppBarDelegate.setStatusBarColor(this, R.color.colorPrimaryDark);
         coordinatorLayout.setFitsSystemWindows(true);
         coreAppBarDelegate.setAppBarScrollingBehavior(AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL | AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS);
@@ -134,8 +135,9 @@ public class ScrollingActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("asdasd");
 
         TextInputLayout asd = ViewUtil.findById(this, R.id.asd);
-        AppCompatSpinner materialDesignSpinner1 = (AppCompatSpinner)
+        CoreSpinnerWidget materialDesignSpinner1 = (CoreSpinnerWidget)
                 findViewById(R.id.spinner1);
+        materialDesignSpinner1.setHintText("Android");
         materialDesignSpinner1.setAdapter(arrayAdapter);
 
         ClickToSelectEditText editTextJobCategory = ViewUtil.findById(this, R.id.signup_text_input_job_category);
@@ -150,6 +152,7 @@ public class ScrollingActivity extends AppCompatActivity {
                 Toast.makeText(ScrollingActivity.this, item.getLabel(), Toast.LENGTH_SHORT).show();
             }
         });
+
 
     }
 
