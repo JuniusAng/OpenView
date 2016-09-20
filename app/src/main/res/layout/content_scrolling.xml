@@ -14,31 +14,27 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
         <com.junang.openview.widget.CoreSpinnerWidget
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/spinner1"
-            style="@style/Base.Widget.AppCompat.Spinner.Underlined"
+            android:theme="@style/ThemeSpinner"
+            android:background="@null"
+            android:paddingLeft="2dp"
+            android:paddingRight="2dp"
             >
 
         </com.junang.openview.widget.CoreSpinnerWidget>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:text="This is new Input Component with more flexible configuration and also follow material guidelines.
-This component allow us to maximize limited space and normal form style\nBasic implementation:"
-            android:layout_marginBottom="10dp"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
+            android:visibility="visible"
             android:text="This component shows char max counter, when i type 'adapt focus' it will adapt to focus change"
             android:layout_marginBottom="10dp"/>
         <com.junang.openview.delegation.CoreInputLayoutWidget
             android:layout_width="match_parent"
             android:id="@+id/error_text"
-            android:visibility="gone"
-            android:layout_below="@+id/error_text4"
+            android:visibility="visible"
+            android:paddingLeft="10dp"
             android:layout_height="wrap_content"
             style="@style/BaseInputLayout"
             app:counterMaxLength="10"
@@ -55,7 +51,7 @@ This component allow us to maximize limited space and normal form style\nBasic i
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="This component shows inline helper and inline error(popup)"
-            android:visibility="gone"
+            android:visibility="visible"
             android:layout_marginBottom="10dp"/>
 
         <com.junang.openview.delegation.CoreInputLayoutWidget
@@ -63,7 +59,7 @@ This component allow us to maximize limited space and normal form style\nBasic i
             android:id="@+id/error_text3"
             android:layout_height="wrap_content"
             android:layout_below="@+id/a"
-            android:visibility="gone"
+            android:visibility="visible"
             style="@style/BaseInputLayout.Email"
             />
 
@@ -79,47 +75,6 @@ This component allow us to maximize limited space and normal form style\nBasic i
             android:layout_height="wrap_content"
             style="@style/BaseInputLayout"
             />
-        <com.rengwuxian.materialedittext.MaterialEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:met_floatingLabelText="testingFloat"
-            app:met_floatingLabel="highlight"
-            app:met_floatingLabelAnimating="true"
-            app:met_floatingLabelAlwaysShown="false"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/BaseText.Small_13"
-                android:text="spinner"/>
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/asd"
-                android:hint="asd"
-                app:hintEnabled="true"
-                app:hintAnimationEnabled="true">
-                <android.support.v7.widget.AppCompatSpinner
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/spinner"
-                    style="@style/Base.Widget.AppCompat.Spinner.Underlined"
-                    >
-
-                </android.support.v7.widget.AppCompatSpinner>
-            </android.support.design.widget.TextInputLayout>
-
-
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <com.junang.openview.widget.ClickToSelectEditText
-                android:id="@+id/signup_text_input_job_category"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="hint" />
-        </android.support.design.widget.TextInputLayout>
     </LinearLayout>
 
 

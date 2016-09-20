@@ -7,6 +7,7 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatSpinner;
+import android.support.v7.widget.AppCompatTextView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MenuItem;
@@ -22,6 +23,7 @@ import com.junang.openview.delegation.CoreFABDelegate;
 import com.junang.openview.delegation.CoreTabDelegate;
 import com.junang.openview.delegation.behavior.ScrollAwareFABBehavior;
 import com.junang.openview.util.ViewUtil;
+import com.junang.openview.util.ViewValue;
 import com.junang.openview.widget.ClickToSelectEditText;
 import com.junang.openview.widget.CoreSpinnerWidget;
 import com.junang.openview.widget.Listable;
@@ -37,25 +39,14 @@ public class ScrollingActivity extends AppCompatActivity {
     CoreAppBarDelegate coreAppBarDelegate;
     TextView tv;
     boolean isShow;
+    CoreSpinnerWidget materialDesignSpinner1;
     String[] SPINNERLIST = {"Android Material Design", "Material Design Spinner", "Spinner Using Material Library", "Material Spinner Example"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ViewValue.get().init(this);
         setContentView(R.layout.activity_scrolling);
-//        setSupportActionBar(toolbar);
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
 
-//        final CoreDelegateDependency coreDelegateDependency = new CoreDelegateDependency(new AsyncLayoutInflater(this), getLayoutInflater(),
-//                (CoordinatorLayout) findViewById(R.id.core_coordinator_layout),
-//                (AppBarLayout) findViewById(R.id.core_app_bar),
-//                (NestedScrollView) findViewById(R.id.core_content_scroll));
         final CoordinatorLayout coordinatorLayout = (CoordinatorLayout) findViewById(R.id.core_coordinator_layout);
         ((CoreInputLayoutWidget) findById(ScrollingActivity.this, R.id.error_text3)).setIsHintFloating(false).setHint("hint inline*");
         ((CoreInputLayoutWidget) findById(ScrollingActivity.this, R.id.error_text4)).setIsHintFloating(true).setHint("hint floating*");
@@ -76,22 +67,9 @@ public class ScrollingActivity extends AppCompatActivity {
                     ((CoreInputLayoutWidget) findById(ScrollingActivity.this, R.id.error_text4)).setIsErrorBottom(true).setError(null);
                     ((CoreInputLayoutWidget) findById(ScrollingActivity.this, R.id.error_text)).setCounterEnabled(true);
                 }
+
                 isShow = !isShow;
-//                if(tv == null) {
-//                    tv = new TextView(ScrollingActivity.this);
-//                    tv.setText("Form here : initialization example");
-//                    appBarLayout.addView(tv, 1);
-//                }
-//                else{
-//                    tv.getLayoutParams().height = 300;
-//                    if(tv.getVisibility() == View.VISIBLE) {
-//                        tv.setVisibility(View.GONE);
-//                    }
-//                    else {
-//                        tv.setVisibility(View.VISIBLE);
-//                        tv.setText("Form here : Expanded");
-//                    }
-//                }
+                materialDesignSpinner1.setShowError(isShow);
 
             }
         });
@@ -129,31 +107,19 @@ public class ScrollingActivity extends AppCompatActivity {
 
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,
                 R.layout.widget_spinner_text, SPINNERLIST);
-        AppCompatSpinner materialDesignSpinner = (AppCompatSpinner)
-                findViewById(R.id.spinner);
-        materialDesignSpinner.setAdapter(arrayAdapter);
-        getSupportActionBar().setTitle("asdasd");
 
-        TextInputLayout asd = ViewUtil.findById(this, R.id.asd);
-        CoreSpinnerWidget materialDesignSpinner1 = (CoreSpinnerWidget)
-                findViewById(R.id.spinner1);
-        materialDesignSpinner1.setHintText("Android");
-        materialDesignSpinner1.setAdapter(arrayAdapter);
-
-        ClickToSelectEditText editTextJobCategory = ViewUtil.findById(this, R.id.signup_text_input_job_category);
         ArrayList<Data> mData = new ArrayList<>();
+        ArrayList<String> mList = new ArrayList<>();
         for(String str : SPINNERLIST){
             mData.add(new Data(str));
+            mList.add(str);
         }
-        editTextJobCategory.setItems(mData);
-        editTextJobCategory.setOnItemSelectedListener(new ClickToSelectEditText.OnItemSelectedListener<Data>() {
-            @Override
-            public void onItemSelectedListener(Data item, int selectedIndex) {
-                Toast.makeText(ScrollingActivity.this, item.getLabel(), Toast.LENGTH_SHORT).show();
-            }
-        });
 
-
+        materialDesignSpinner1 = (CoreSpinnerWidget)
+                findViewById(R.id.spinner1);
+        materialDesignSpinner1.setHintText("Android");
+        materialDesignSpinner1.setAnimatingHint(true);
+        materialDesignSpinner1.setItems(mList, true);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.junang.openview.util;
 
+import android.app.Application;
 import android.content.Context;
 import android.graphics.Point;
 import android.os.Build;

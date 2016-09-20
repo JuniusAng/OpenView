@@ -58,6 +58,12 @@
         <item name="android:textColor">@color/text_main</item>
     </style>
 
+    <style name="BaseText.Error">
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">#FF0000</item>
+    </style>
+
     <style name="BaseInputLayout" parent="Theme.Design.Light">
         <item name="errorTextAppearance">@style/CoreText.Error</item>
         <item name="floatingHelpTextAppearance">@style/CoreText.Floating</item>

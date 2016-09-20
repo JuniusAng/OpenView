@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+          android:id="@android:id/text1"
+          style="?android:attr/dropDownItemStyle"
+          android:textAppearance="@style/BaseText.Common_14"
+          android:maxLines="1"
+          android:layout_width="match_parent"
+          android:layout_gravity="bottom"
+          android:layout_height="45dp"
+          android:ellipsize="marquee"
+          android:layout_marginTop="1dp"
+          xmlns:tools="http://schemas.android.com/tools"
+        tools:text="testing"/>

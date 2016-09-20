@@ -29,9 +29,15 @@ import com.junang.openview.util.ViewUtil;
 public class CoreInputLayoutWidget extends TextInputLayout {
     protected Context mContext;
     protected Paint mPaint;
+    protected AttributeSet mAttrs;
     protected TextInputEditText vEditText;
     protected boolean isHintFloating = true;
     protected boolean isErrorBottom = true;
+
+    public CoreInputLayoutWidget(Context context) {
+        super(context);
+        this.mContext = context;
+    }
 
     public CoreInputLayoutWidget(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -70,9 +76,7 @@ public class CoreInputLayoutWidget extends TextInputLayout {
                     super.setHint(hint);
                 }
             }
-        } catch (Exception e) {
-
-        }
+        } catch (Exception ignored) {}
     }
 
     public CoreInputLayoutWidget setIsHintFloating(boolean isShowfloating){
@@ -86,27 +90,27 @@ public class CoreInputLayoutWidget extends TextInputLayout {
     }
 
     protected void init(AttributeSet attrs, int defStyleAttrs){
+        this.mAttrs = attrs;
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        vEditText = new TextInputEditText(mContext, attrs);
 
-        vEditText.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-        vEditText.setOnEditorActionListener(new EditText.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event){
-                if (actionId == EditorInfo.IME_ACTION_NEXT) {
-                    // Some logic here.
-                    return true; // Focus will do whatever you put in the logic.
-                }
-                return false;  // Focus will change according to the actionId
-            }
-        });
-        vEditText.setMaxLines(1);
-        vEditText.setHintTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimaryDark));
-        setHintTextAppearance(R.style.CoreText_Floating);
+//        vEditText.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+//        vEditText.setOnEditorActionListener(new EditText.OnEditorActionListener() {
+//            @Override
+//            public boolean onEditorAction(TextView v, int actionId, KeyEvent event){
+//                if (actionId == EditorInfo.IME_ACTION_NEXT) {
+//                    // Some logic here.
+//                    return true; // Focus will do whatever you put in the logic.
+//                }
+//                return false;  // Focus will change according to the actionId
+//            }
+//        });
+//        vEditText.setMaxLines(1);
+//        vEditText.setHintTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimaryDark));
+//        setHintTextAppearance(R.style.CoreText_Floating);
 //        Drawable d = ContextCompat.getDrawable(getContext(), R.drawable.ic_account_circle_black_24dp);
 //        d.setBounds(0, 0, d.getIntrinsicWidth(), d.getIntrinsicHeight());
 //        vEditText.setError("testing", d);
-        this.addView(vEditText);
+
 
 //        final TypedArray a = getContext().obtainStyledAttributes(
 //                attrs, R.styleable.CoreInputLayoutWidget, defStyleAttrs, 0);
@@ -121,6 +125,11 @@ public class CoreInputLayoutWidget extends TextInputLayout {
 //            else if(attr == R.styleable.CoreButtonWidget_coreButtonDrawableEnd){
 //                setCompoundDrawablesWithIntrinsicBounds(null, null, a.getDrawable(R.styleable.CoreButtonWidget_coreButtonDrawableEnd), null);
 //            }
+    }
+
+    protected void addDefaultEditText(){
+        vEditText = new TextInputEditText(mContext, mAttrs);
+        this.addView(vEditText);
     }
 
     protected void setListener(){

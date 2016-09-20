@@ -17,6 +17,9 @@ android {
         }
     }
     productFlavors {
+        general{
+            minSdkVersion 15
+        }
         lollipop {
             minSdkVersion 21
             targetSdkVersion 21
@@ -28,5 +31,4 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
     compile project(':library')
-    compile 'com.rengwuxian.materialedittext:library:2.1.4'
 }
