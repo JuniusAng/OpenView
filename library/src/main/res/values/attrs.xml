@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="CoreInputLayoutWidget">
-        <attr name="floatingHelpTextAppearance" format="reference"/>
-        <attr name="inlineErrorTextAppearance" format="reference" />
-        <attr name="inlineHelpTextApperance" format="reference" />
+    <declare-styleable name="BaseInputLayoutWidget">
+        <attr name="isInlineHint" format="boolean"/>
+        <attr name="isBottomError" format="boolean"/>
+        <attr name="isAnimatingTransition" format="boolean"/>
+        <attr name="isUsingCustomEditText" format="boolean"/>
         <attr name="maxChar" format="reference|integer" />
         <attr name="maxLines" format="reference|integer" />
     </declare-styleable>

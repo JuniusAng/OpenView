@@ -65,10 +65,10 @@
     </style>
 
     <style name="BaseInputLayout" parent="Theme.Design.Light">
-        <item name="errorTextAppearance">@style/CoreText.Error</item>
-        <item name="floatingHelpTextAppearance">@style/CoreText.Floating</item>
-        <item name="inlineHelpTextApperance">@style/CoreText.Floating</item>
-        <item name="hintTextAppearance">@style/CoreText.Floating</item>
+        <!--<item name="errorTextAppearance">@style/CoreText.Error</item>-->
+        <!--<item name="floatingHelpTextAppearance">@style/CoreText.Floating</item>-->
+        <!--<item name="inlineHelpTextApperance">@style/CoreText.Floating</item>-->
+        <!--<item name="hintTextAppearance">@style/CoreText.Floating</item>-->
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="colorControlNormal">#c5c5c5</item>
